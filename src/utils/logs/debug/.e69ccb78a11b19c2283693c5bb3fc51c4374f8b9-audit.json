@@ -1,0 +1,25 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "/Users/navjeet/Documents/candidate/talent-candidate/apps/api/src/utils/logs/debug/.e69ccb78a11b19c2283693c5bb3fc51c4374f8b9-audit.json",
+    "files": [
+        {
+            "date": 1697544259720,
+            "name": "/Users/navjeet/Documents/candidate/talent-candidate/apps/api/src/utils/logs/debug/2023-10-17.log",
+            "hash": "a9420662ed33d934822825de88c65b81a35825fb3d6de65b176b8307f2e94ffb"
+        },
+        {
+            "date": 1697692622913,
+            "name": "/Users/navjeet/Documents/candidate/talent-candidate/apps/api/src/utils/logs/debug/2023-10-19.log",
+            "hash": "f647f20796f3831920ad728b0973f8fbd9d0ba94ae4eb5940f258a09033e1c0e"
+        },
+        {
+            "date": 1698384479395,
+            "name": "/Users/navjeet/Documents/candidate/talent-candidate/apps/api/src/utils/logs/debug/2023-10-27.log",
+            "hash": "1f0a19b808b015c53f685ed0cee2bf10e3bcc5e4515711121bd437114a33bebc"
+        }
+    ],
+    "hashType": "sha256"
+}

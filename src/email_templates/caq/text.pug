@@ -1,0 +1,13 @@
+extends ../common/layouts/basic.pug
+
+block content
+  p
+  p Hello #{ctx.full_name},
+  p We have set questionnaire form, In order to complete the job application process.
+  p To answer the questionnaire, please click on the link below or cut and paste it into your browser address bar.
+  p <a href="#{ctx.url}">#{ctx.url}</a>
+  p After submitting your passcode, you’ll redirect to caq form.
+  p Passcode is: #{ctx.passcode}
+  p
+  p Thanks,
+  p Support Team at Serviceo

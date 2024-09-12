@@ -1,0 +1,32 @@
+2023-10-17 19:55:54 error: uncaughtException: Request failed with status code 404
+AxiosError: Request failed with status code 404
+    at settle (/Users/navjeet/Documents/candidate/talent-candidate/apps/api/node_modules/axios/lib/core/settle.js:19:12)
+    at IncomingMessage.handleStreamEnd (/Users/navjeet/Documents/candidate/talent-candidate/apps/api/node_modules/axios/lib/adapters/http.js:572:11)
+    at IncomingMessage.emit (node:events:525:35)
+    at IncomingMessage.emit (node:domain:489:12)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)
+2023-10-17 19:55:54 error: uncaughtException: Request failed with status code 404
+AxiosError: Request failed with status code 404
+    at settle (/Users/navjeet/Documents/candidate/talent-candidate/apps/api/node_modules/axios/lib/core/settle.js:19:12)
+    at IncomingMessage.handleStreamEnd (/Users/navjeet/Documents/candidate/talent-candidate/apps/api/node_modules/axios/lib/adapters/http.js:572:11)
+    at IncomingMessage.emit (node:events:525:35)
+    at IncomingMessage.emit (node:domain:489:12)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)
+2023-10-17 19:55:55 error: uncaughtException: Request failed with status code 404
+AxiosError: Request failed with status code 404
+    at settle (/Users/navjeet/Documents/candidate/talent-candidate/apps/api/node_modules/axios/lib/core/settle.js:19:12)
+    at IncomingMessage.handleStreamEnd (/Users/navjeet/Documents/candidate/talent-candidate/apps/api/node_modules/axios/lib/adapters/http.js:572:11)
+    at IncomingMessage.emit (node:events:525:35)
+    at IncomingMessage.emit (node:domain:489:12)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)
+2023-10-17 19:55:56 error: uncaughtException: Request failed with status code 404
+AxiosError: Request failed with status code 404
+    at settle (/Users/navjeet/Documents/candidate/talent-candidate/apps/api/node_modules/axios/lib/core/settle.js:19:12)
+    at IncomingMessage.handleStreamEnd (/Users/navjeet/Documents/candidate/talent-candidate/apps/api/node_modules/axios/lib/adapters/http.js:572:11)
+    at IncomingMessage.emit (node:events:525:35)
+    at IncomingMessage.emit (node:domain:489:12)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)

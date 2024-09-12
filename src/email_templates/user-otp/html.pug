@@ -1,0 +1,20 @@
+extends ../common/layouts/default.pug
+
+block content
+  table.body-wrap(align='center', width='80%')
+    tbody
+      tr
+        td(style='padding:0.5cm 22.5pt 0cm 22.5pt')
+          .content
+          p(style='font-size:16px') Hello #{ctx.full_name},
+          p <br> 
+          .quote
+          p(style='font-size:14px') Please use the verification code below to complete your Sign Up procedures
+          p(style='font-size:14px') Your one time password is: <b>#{ctx.otp}</b>
+          p(style='font-size:14px') If you didn't request this, you can ignore this email.<br>
+          p <br>
+          p(style='font-size:14px') Thanks
+          p(style='font-size:14px') Support Team at Serviceo 
+          p(style='font-size:14px') 980 Mission Ct, Fremont CA 94539
+          p <br>
+          p <br>

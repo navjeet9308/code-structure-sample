@@ -1,0 +1,22 @@
+extends ../common/layouts/default.pug
+
+block content
+  table.body-wrap(align='center', width='80%')
+    tbody
+      tr
+        td(style='padding:0.5cm 22.5pt 0cm 22.5pt')
+          .content
+          p(style='font-size:16px') Hello #{ctx.full_name},
+          p <br> 
+          .quote
+          p(style='font-size:14px') We have set questionnaire form, In order to complete the job application process.
+          p(style='font-size:14px') To answer the questionnaire, please click on the link below or cut and paste it into your browser address bar. 
+          p(style='font-size:14px') <a href="#{ctx.url}">#{ctx.url}</a>
+          p(style='font-size:14px') After submitting your passcode, you’ll redirect to caq form.
+          p(style='font-size:14px') Passcode is: <b>#{ctx.passcode}</b>
+          p <br>
+          p(style='font-size:14px') Thanks
+          p(style='font-size:14px') Support Team at Serviceo 
+          p(style='font-size:14px') 980 Mission Ct, Fremont CA 94539
+          p <br>
+          p <br>

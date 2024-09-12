@@ -1,0 +1,4 @@
+node_modules
+.env
+src/utils/test/debug/*
+src/utils/test/error/*

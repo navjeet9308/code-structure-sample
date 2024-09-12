@@ -1,0 +1,1393 @@
+---
+openapi: 3.0.3
+info:
+  title: Candidate Portal APIs
+  contact:
+    name: API Support
+    url: https://ironsystems.com/contact
+    email: gstl@ironsystems.com
+  version: 0.0.1
+security:
+- bearerAuth: []
+tags:
+- name: Job Offer APIs
+- name: Job Search APIs
+- name: User Profile Operations
+- name: User Registration
+paths:
+  /api/v1/job/offer/{id}/accept:
+    get:
+      tags:
+      - Job Offer APIs
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseBoolean'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /api/v1/job/offer/{id}/detail:
+    get:
+      tags:
+      - Job Offer APIs
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobOfferDetailView'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /api/v1/job/offer/{id}/reject:
+    get:
+      tags:
+      - Job Offer APIs
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseBoolean'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /api/v1/job/offers/list:
+    get:
+      tags:
+      - Job Offer APIs
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobOfferView'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /api/v1/register:
+    post:
+      tags:
+      - User Registration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationFormDTO'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationResponseView'
+  /api/v1/register/checkEmailExistence:
+    post:
+      tags:
+      - User Registration
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseBoolean'
+        "409":
+          description: "An account with this email exists, cant proceed creating account."
+  /api/v1/userAccount/deleteAccount:
+    delete:
+      tags:
+      - User Account Controller
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseBoolean'
+        "400":
+          description: There was a problem deleting your account.Please contact support.
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /api/v1/userAccount/resetPassword:
+    post:
+      tags:
+      - User Account Controller
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseBoolean'
+  /api/v1/userAccount/updatePassword:
+    post:
+      tags:
+      - User Account Controller
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseBoolean'
+        "400":
+          description: Passwords do not match
+  /jobs/agent/create/{frequency}:
+    post:
+      tags:
+      - Job Search APIs
+      parameters:
+      - name: frequency
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobFilterDTO'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseJobAgentDTO'
+  /jobs/agent/{id}/delete:
+    delete:
+      tags:
+      - Job Search APIs
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseBoolean'
+  /jobs/agent/{id}/update/{frequency}:
+    post:
+      tags:
+      - Job Search APIs
+      parameters:
+      - name: frequency
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobFilterDTO'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseJobAgentDTO'
+  /jobs/savedJobs:
+    get:
+      tags:
+      - Job Search APIs
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SavedJobView'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /jobs/search:
+    post:
+      tags:
+      - Job Search APIs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobFilterDTO'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobView'
+  /jobs/{id}/apply:
+    post:
+      tags:
+      - Job Search APIs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: Job Application is created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobApplicationAppliedDTO'
+        "410":
+          description: This job can not be applied now.
+        "409":
+          description: You have already applied to this job.
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /jobs/{id}/detail:
+    post:
+      tags:
+      - Job Search APIs
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobDetailView'
+  /jobs/{id}/save:
+    post:
+      tags:
+      - Job Search APIs
+      responses:
+        "200":
+          description: Job saved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseBoolean'
+        "410":
+          description: This job has been closed.
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/addEducationDetails:
+    post:
+      tags:
+      - User Profile Operations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EducationView'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EducationView'
+        "400":
+          description: Error validating requested data.
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/cancelJobApplications/{id}:
+    get:
+      tags:
+      - User Profile Operations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseBoolean'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/{id}/details:
+    get:
+      tags:
+      - User Profile Operations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileDetailView'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/{id}/educationDetails:
+    get:
+      tags:
+      - User Profile Operations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EducationView'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EducationView'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/{id}/jobApplications:
+    get:
+      tags:
+      - User Profile Operations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobApplicationView'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/{id}/jobApplication/{applicationId}:
+    get:
+      tags:
+      - User Profile Operations
+      parameters:
+      - name: applicationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobApplicationView'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/{id}/jobAgents:
+    get:
+      tags:
+      - User Profile Operations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseListJobAgentDTO'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/{id}/notifications:
+    get:
+      tags:
+      - User Profile Operations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotificationView'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/{id}:
+    put:
+      tags:
+      - User Profile Operations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileView'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileView'
+        "400":
+          description: Error validating requested data.
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/{id}/completionStatus:
+    get:
+      tags:
+      - User Profile Operations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileCompletenessView'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/{id}/resume/list:
+    get:
+      tags:
+      - User Profile Operations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseListString'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/education:
+    put:
+      tags:
+      - User Profile Operations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EducationView'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EducationView'
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/profilePicture:
+    put:
+      tags:
+      - User Profile Operations
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseBoolean'
+        "413":
+          description: File size too large
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/skills:
+    put:
+      tags:
+      - User Profile Operations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillAndExperienceDTO'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponseBoolean'
+        "400":
+          description: In put data does not match.
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+  /profile/workPreferences:
+    put:
+      tags:
+      - User Profile Operations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/job_preferenceView'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppResponsejob_preferenceView'
+        "400":
+          description: Error validating requested data.
+        "404":
+          description: Profile related to the update was not found.
+        "401":
+          description: Not Authorized
+        "403":
+          description: Not Allowed
+      security:
+      - bearerAuth:
+        - ROLE_CANDIDATE
+components:
+  schemas:
+    AppResponseBoolean:
+      type: object
+      properties:
+        message:
+          type: string
+        metadata:
+          type: boolean
+    AppResponseJobAgentDTO:
+      type: object
+      properties:
+        message:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/JobAgentDTO'
+    AppResponsejob_preferenceView:
+      type: object
+      properties:
+        message:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/job_preferenceView'
+    AppResponseListJobAgentDTO:
+      type: object
+      properties:
+        message:
+          type: string
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobAgentDTO'
+    AppResponseListString:
+      type: object
+      properties:
+        message:
+          type: string
+        metadata:
+          type: array
+          items:
+            type: string
+    CandidateProfileDTO:
+      type: object
+      properties:
+        totalExperience:
+          format: int32
+          type: integer
+        job_preferences:
+          $ref: '#/components/schemas/job_preferenceDTO'
+        citizenShips:
+          type: array
+          items:
+            type: string
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillDTO'
+        employmentHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmploymentDTO'
+        educations:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationDTO'
+        certifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertificationDTO'
+        professionalLicenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfessionalLicenseDTO'
+        profileCompleteness:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileCompletenessDTO'
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/LanguageDTO'
+    Certification:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        yearFrom:
+          format: int32
+          type: integer
+        yearTo:
+          format: int32
+          type: integer
+        expiryDate:
+          format: int32
+          type: integer
+    CertificationDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        yearFrom:
+          format: int32
+          type: integer
+        yearTo:
+          format: int32
+          type: integer
+        expiryDate:
+          format: int32
+          type: integer
+    EducationDTO:
+      type: object
+      properties:
+        educationalDegrees:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationalDegreeDTO'
+        certifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/CertificationDTO'
+    EducationView:
+      type: object
+      properties:
+        educationalDegrees:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationalDegreeView'
+        certifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Certification'
+    EducationalDegreeDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        yearFrom:
+          format: int32
+          type: integer
+        yearTo:
+          format: int32
+          type: integer
+    EducationalDegreeView:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        yearFrom:
+          format: int32
+          type: integer
+        yearTo:
+          format: int32
+          type: integer
+    EmploymentDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        yearFrom:
+          type: string
+        yearTo:
+          type: string
+    EmploymentType:
+      enum:
+      - PART_TIME
+      - FULL_TIME
+      - CONTRACT
+      - FREELANCE
+      type: string
+    EmploymentView:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        yearFrom:
+          type: string
+        yearTo:
+          type: string
+    FluencyLevel:
+      enum:
+      - ELEMENTARY
+      - MEDIUM
+      - PROFESSIONAL
+      - NATIVE
+      type: string
+    Gender:
+      enum:
+      - MALE
+      - FEMALE
+      type: string
+    JobAgentDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        criteria:
+          $ref: '#/components/schemas/JobFilterDTO'
+    JobApplicationAppliedDTO:
+      type: object
+      properties:
+        jobId:
+          type: string
+        applicationId:
+          type: string
+        appliedAt:
+          $ref: '#/components/schemas/LocalDateTime'
+    JobApplicationView:
+      type: object
+      properties:
+        id:
+          type: string
+        jobOrderId:
+          type: string
+        jobTitle:
+          type: string
+        createdAt:
+          type: string
+        status:
+          type: string
+    JobDetailView:
+      type: object
+      properties:
+        id:
+          type: string
+        companyName:
+          type: string
+        companyId:
+          format: int64
+          type: integer
+        jobTitle:
+          type: string
+        work_location:
+          $ref: '#/components/schemas/work_location'
+        experienceFrom:
+          format: int64
+          type: integer
+        experienceTo:
+          format: int64
+          type: integer
+        location:
+          type: string
+        salaryFrom:
+          format: int64
+          type: integer
+        salaryTo:
+          format: int64
+          type: integer
+        employmentType:
+          $ref: '#/components/schemas/EmploymentType'
+        postedOn:
+          $ref: '#/components/schemas/LocalDateTime'
+        jobDescription:
+          type: string
+        companyRating:
+          format: double
+          type: number
+    JobFilterDTO:
+      type: object
+      properties:
+        sortingCriteria:
+          $ref: '#/components/schemas/JobSortingCriteria'
+        jobType:
+          $ref: '#/components/schemas/EmploymentType'
+        cityId:
+          type: string
+        distanceWithin:
+          format: int64
+          type: integer
+        jobFunction:
+          type: string
+        jobRoleId:
+          type: string
+        salaryFrom:
+          format: int64
+          type: integer
+        salaryTo:
+          format: int64
+          type: integer
+        experienceFrom:
+          format: int64
+          type: integer
+        experienceTo:
+          format: int64
+          type: integer
+        educationLevelId:
+          type: string
+        jobFreshnessInDays:
+          format: int64
+          type: integer
+    JobOfferDetailView:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/LocalDateTime'
+        offeredByCompanyId:
+          type: string
+        jobOrderId:
+          type: string
+        expiresInDays:
+          format: int64
+          type: integer
+        amountOffered:
+          type: string
+        offerAcceptanceLink:
+          type: string
+    JobOfferView:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          $ref: '#/components/schemas/LocalDateTime'
+        offeredByCompanyId:
+          type: string
+        jobOrderId:
+          type: string
+        expiresInDays:
+          format: int64
+          type: integer
+    job_preferenceDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        desiredLocations:
+          type: array
+          items:
+            type: string
+        open_to_relocate:
+          type: boolean
+        worker_type:
+          $ref: '#/components/schemas/worker_type'
+        work_location:
+          $ref: '#/components/schemas/work_location'
+        employmentType:
+          $ref: '#/components/schemas/EmploymentType'
+        current_payout_type:
+          $ref: '#/components/schemas/PayoutType'
+        expected_payout_type:
+          $ref: '#/components/schemas/PayoutType'
+        title_match_criteria:
+          $ref: '#/components/schemas/title_match_criteriaDTO'
+        presentSalary:
+          format: int64
+          type: integer
+    job_preferenceView:
+      type: object
+      properties:
+        id:
+          type: string
+        desiredLocations:
+          type: array
+          items:
+            type: string
+        open_to_relocate:
+          type: boolean
+        worker_type:
+          $ref: '#/components/schemas/worker_type'
+        work_location:
+          $ref: '#/components/schemas/work_location'
+        employmentType:
+          $ref: '#/components/schemas/EmploymentType'
+        current_payout_type:
+          $ref: '#/components/schemas/PayoutType'
+        expected_payout_type:
+          $ref: '#/components/schemas/PayoutType'
+        title_match_criteria:
+          $ref: '#/components/schemas/title_match_criteriaView'
+        presentSalary:
+          format: int64
+          type: integer
+        noticePeriodWeeks:
+          format: int32
+          type: integer
+    JobSortingCriteria:
+      enum:
+      - HIGH_PRIORITY
+      - POPULAR
+      - RECOMMENDED
+      - NEARBY_FIRST
+      type: string
+    JobView:
+      type: object
+      properties:
+        companyName:
+          type: string
+        companyId:
+          format: int64
+          type: integer
+        jobTitle:
+          type: string
+        work_location:
+          $ref: '#/components/schemas/work_location'
+        experienceFrom:
+          format: int64
+          type: integer
+        experienceTo:
+          format: int64
+          type: integer
+        location:
+          type: string
+        salaryFrom:
+          format: int64
+          type: integer
+        salaryTo:
+          format: int64
+          type: integer
+        employmentType:
+          $ref: '#/components/schemas/EmploymentType'
+        postedOn:
+          $ref: '#/components/schemas/LocalDateTime'
+    LanguageDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        level:
+          $ref: '#/components/schemas/FluencyLevel'
+    LanguageView:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        level:
+          $ref: '#/components/schemas/FluencyLevel'
+    LocalDateTime:
+      format: date-time
+      type: string
+      example: 2022-03-10T12:15:50
+    NotificationView:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        message:
+          type: string
+        actionable:
+          type: boolean
+        actionLink:
+          type: string
+        priority:
+          $ref: '#/components/schemas/Priority'
+    PayoutType:
+      enum:
+      - HOURLY
+      - DAILY
+      - WEEKLY
+      - MONTHLY
+      type: string
+    Priority:
+      enum:
+      - CRITICAL
+      - HIGH
+      - LOW
+      type: string
+    ProfessionalLicenseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        yearFrom:
+          format: int32
+          type: integer
+        yearTo:
+          format: int32
+          type: integer
+        expiryDate:
+          format: int32
+          type: integer
+    ProfileCompletenessDTO:
+      type: object
+      properties:
+        fieldName:
+          type: string
+        category:
+          type: string
+        complete:
+          type: boolean
+        profileCompletenessPercentage:
+          format: float
+          type: number
+    ProfileCompletenessView:
+      type: object
+      properties:
+        profileFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileField'
+        complete:
+          type: boolean
+        profileCompletenessPercentage:
+          format: float
+          type: number
+    ProfileDetailView:
+      type: object
+      properties:
+        totalExperience:
+          format: int32
+          type: integer
+        basicInfo:
+          $ref: '#/components/schemas/ProfileView'
+        educations:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationalDegreeView'
+        employments:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmploymentView'
+        profileCompleteness:
+          $ref: '#/components/schemas/ProfileCompletenessView'
+        languageList:
+          type: array
+          items:
+            $ref: '#/components/schemas/LanguageView'
+        gender:
+          $ref: '#/components/schemas/Gender'
+        phone:
+          type: string
+        email:
+          type: string
+        username:
+          type: string
+        about:
+          type: string
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillView'
+    ProfileField:
+      type: object
+      properties:
+        fieldName:
+          type: string
+        isField:
+          type: boolean
+        weight:
+          format: int32
+          type: integer
+    ProfileView:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePic:
+          type: string
+        jobTitle:
+          type: string
+    RegistrationFormDTO:
+      type: object
+      properties:
+        fullName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        password:
+          type: string
+        candidateProfile:
+          $ref: '#/components/schemas/CandidateProfileDTO'
+    RegistrationResponseView:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+    SavedJobView:
+      type: object
+      properties:
+        id:
+          type: string
+        jobTitle:
+          type: string
+        companyName:
+          type: string
+        description:
+          type: string
+        searchCriteria:
+          $ref: '#/components/schemas/JobFilterDTO'
+    SkillAndExperienceDTO:
+      type: object
+      properties:
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillView'
+        employments:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmploymentView'
+    SkillDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    SkillView:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        skillLevel:
+          format: float
+          type: number
+    title_match_criteriaDTO:
+      type: object
+      properties:
+        titles:
+          type: array
+          items:
+            type: string
+        titleMatchType:
+          $ref: '#/components/schemas/TitleMatchType'
+    title_match_criteriaView:
+      type: object
+      properties:
+        titles:
+          type: array
+          items:
+            type: string
+        titleMatchType:
+          $ref: '#/components/schemas/TitleMatchType'
+    TitleMatchType:
+      enum:
+      - MUST_HAVE
+      - NICE_TO_HAVE
+      - DO_NOT_SHOW
+      type: string
+    work_location:
+      enum:
+      - REMOTE
+      - ONSITE
+      type: string
+    worker_type:
+      enum:
+      - WT_1099
+      - W2
+      type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
